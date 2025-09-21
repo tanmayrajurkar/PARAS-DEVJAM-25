@@ -123,6 +123,13 @@
   transform: translateY(-1px) rotateX(2deg) scale(0.98);
 }
 
+.nav-link.active {
+  background: var(--accent-gradient);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
 /* Large screens (1200px and up) */
 @media (min-width: 1200px) {
   .header-container {
