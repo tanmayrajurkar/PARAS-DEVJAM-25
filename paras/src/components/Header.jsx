@@ -6,8 +6,8 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <span className="logo-icon">🅿️</span>
-          <h1>ParkEasy</h1>
+          <span className="logo-icon">🅿</span>
+          <h1>PARAS</h1>
         </div>
         <nav className="nav">
           <a href="#home" className="nav-link">Home</a>
