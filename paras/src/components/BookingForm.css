@@ -1,153 +1,506 @@
 .booking-form {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  border-radius: 20px;
+  padding: 0;
   margin-bottom: 2rem;
+  transform-style: preserve-3d;
+  position: relative;
 }
 
 .booking-form h2 {
   margin: 0 0 1.5rem 0;
-  color: #333;
-  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateZ(10px);
+  letter-spacing: 1px;
 }
 
 .selected-spot-info {
-  background: #eff6ff;
-  border: 2px solid #3b82f6;
-  border-radius: 8px;
-  padding: 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
   margin-bottom: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.selected-spot-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--accent-gradient);
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .selected-spot-info h3 {
-  margin: 0 0 0.5rem 0;
-  color: #1e40af;
-  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateZ(10px);
 }
 
 .selected-spot-info p {
-  margin: 0.25rem 0;
-  color: #374151;
-  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
 }
 
 .no-spot-selected {
-  background: #fef3c7;
-  border: 2px solid #f59e0b;
-  border-radius: 8px;
-  padding: 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
+  box-shadow: var(--glass-shadow);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.no-spot-selected::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--warning-gradient);
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .no-spot-selected p {
   margin: 0;
-  color: #92400e;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  transform-style: preserve-3d;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  transform-style: preserve-3d;
 }
 
 .form-group label {
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
+  letter-spacing: 0.5px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.9);
+  transition: all var(--transition-normal);
+  transform-style: preserve-3d;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px) translateZ(5px);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .cost-summary {
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.cost-summary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--success-gradient);
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .cost-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: #6b7280;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
 }
 
 .cost-total {
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #1f2937;
-  padding-top: 0.5rem;
-  border-top: 1px solid #e5e7eb;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: white;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateZ(10px);
+  background: var(--success-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 1.25rem 2.5rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
+  transition: all var(--transition-normal);
+  margin-top: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left var(--transition-slow);
 }
 
 .submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transform: var(--transform-hover);
+  box-shadow: var(--shadow-3d);
+}
+
+.submit-btn:hover:not(:disabled)::before {
+  left: 100%;
 }
 
 .submit-btn:disabled {
-  background: #9ca3af;
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.7;
 }
 
-@media (max-width: 768px) {
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
   .booking-form {
-    padding: 1rem;
+    padding: 2.5rem;
+  }
+  
+  .booking-form h2 {
+    font-size: 1.7rem;
+  }
+  
+  .selected-spot-info h3 {
+    font-size: 1.2rem;
   }
   
   .form {
-    gap: 1rem;
+    gap: 1.75rem;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.875rem;
+    font-size: 1.1rem;
   }
   
   .submit-btn {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
+    padding: 1.125rem 2.25rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .booking-form {
+    padding: 2rem;
+  }
+  
+  .form {
+    gap: 1.5rem;
+  }
+  
+  .submit-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile landscape and small tablets (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .booking-form {
+    padding: 1.5rem;
+  }
+  
+  .booking-form h2 {
+    font-size: 1.4rem;
+  }
+  
+  .form {
+    gap: 1.25rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.8rem;
+  }
+  
+  .submit-btn {
+    padding: 0.95rem 1.75rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* Mobile portrait (up to 575px) */
+@media (max-width: 575px) {
+  .booking-form {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .booking-form h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .selected-spot-info {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+  }
+  
+  .selected-spot-info h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .selected-spot-info p {
+    font-size: 0.8rem;
+    margin: 0.2rem 0;
+  }
+  
+  .no-spot-selected {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+  }
+  
+  .no-spot-selected p {
+    font-size: 0.85rem;
+  }
+  
+  .form {
+    gap: 0.875rem;
+  }
+  
+  .form-group {
+    gap: 0.4rem;
+  }
+  
+  .form-group label {
+    font-size: 0.8rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+  
+  .form-group textarea {
+    min-height: 60px;
+  }
+  
+  .cost-summary {
+    padding: 0.75rem;
+    border-radius: 6px;
+  }
+  
+  .cost-item {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .cost-total {
+    font-size: 0.95rem;
+    padding-top: 0.4rem;
+  }
+  
+  .submit-btn {
+    padding: 0.8rem 1.25rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    margin-top: 0.75rem;
+  }
+}
+
+/* Extra small screens (up to 375px) */
+@media (max-width: 375px) {
+  .booking-form {
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .booking-form h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .selected-spot-info {
+    padding: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .selected-spot-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .selected-spot-info p {
+    font-size: 0.75rem;
+    margin: 0.15rem 0;
+  }
+  
+  .no-spot-selected {
+    padding: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .no-spot-selected p {
+    font-size: 0.8rem;
+  }
+  
+  .form {
+    gap: 0.75rem;
+  }
+  
+  .form-group {
+    gap: 0.3rem;
+  }
+  
+  .form-group label {
+    font-size: 0.75rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+  }
+  
+  .form-group textarea {
+    min-height: 55px;
+  }
+  
+  .cost-summary {
+    padding: 0.6rem;
+  }
+  
+  .cost-item {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .cost-total {
+    font-size: 0.9rem;
+    padding-top: 0.3rem;
+  }
+  
+  .submit-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    margin-top: 0.6rem;
   }
 }

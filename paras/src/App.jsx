@@ -27,6 +27,20 @@ function App() {
 
   return (
     <div className="app">
+      {/* 3D Background Elements */}
+      <div className="floating-shapes">
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+        <div className="floating-shape"></div>
+      </div>
+      
+      <div className="geometric-shapes">
+        <div className="geometric-shape"></div>
+        <div className="geometric-shape"></div>
+        <div className="geometric-shape"></div>
+      </div>
+      
       <Header />
       <main className="main-content">
         <div className="container">

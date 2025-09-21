@@ -1,103 +1,251 @@
 .spot-card {
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.25rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   position: relative;
-  min-height: 120px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transform-style: preserve-3d;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.spot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--primary-gradient);
+  opacity: 0.05;
+  z-index: -1;
+  transition: opacity var(--transition-normal);
+}
+
+.spot-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: rotate 4s linear infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
 }
 
 .spot-card:hover:not(.occupied) {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  border-color: rgba(102, 126, 234, 0.5);
+  transform: var(--transform-hover);
+  box-shadow: var(--shadow-3d);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.spot-card:hover:not(.occupied)::before {
+  opacity: 0.1;
+}
+
+.spot-card:hover:not(.occupied)::after {
+  opacity: 1;
 }
 
 .spot-card.occupied {
-  background: #fef2f2;
-  border-color: #fecaca;
+  background: rgba(254, 242, 242, 0.8);
+  border-color: rgba(254, 202, 202, 0.6);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.spot-card.occupied::before {
+  background: var(--warning-gradient);
+  opacity: 0.1;
 }
 
 .spot-card.selected {
-  background: #eff6ff;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: rgba(239, 246, 255, 0.9);
+  border-color: rgba(102, 126, 234, 0.8);
+  box-shadow: var(--shadow-xl), 0 0 0 3px rgba(102, 126, 234, 0.2);
+  transform: translateY(-4px) rotateX(3deg) scale(1.02);
+}
+
+.spot-card.selected::before {
+  background: var(--accent-gradient);
+  opacity: 0.15;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .spot-number {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateZ(10px);
+  letter-spacing: 1px;
 }
 
 .spot-type {
-  font-size: 0.8rem;
-  color: #6b7280;
-  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
 }
 
 .spot-price {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #059669;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background: var(--success-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateZ(8px);
 }
 
 .spot-features {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.4rem;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  transform: translateZ(5px);
 }
 
 .feature-tag {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.7rem;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.feature-tag:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-md);
 }
 
 .spot-status {
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
   margin-top: auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateZ(5px);
+  transition: all var(--transition-normal);
 }
 
 .spot-card:not(.occupied):not(.selected) .spot-status {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--success-gradient);
+  color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .spot-card.occupied .spot-status {
-  background: #fecaca;
-  color: #991b1b;
+  background: var(--warning-gradient);
+  color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .spot-card.selected .spot-status {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px) scale(1.05);
 }
 
-@media (max-width: 768px) {
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
   .spot-card {
-    min-height: 100px;
-    padding: 0.75rem;
+    min-height: 140px;
+    padding: 1.25rem;
+  }
+  
+  .spot-number {
+    font-size: 1.4rem;
+  }
+  
+  .spot-type {
+    font-size: 0.9rem;
+  }
+  
+  .spot-price {
+    font-size: 1rem;
+  }
+  
+  .feature-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .spot-status {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .spot-card {
+    min-height: 120px;
+    padding: 1rem;
+  }
+  
+  .spot-number {
+    font-size: 1.1rem;
+  }
+  
+  .spot-type {
+    font-size: 0.8rem;
+  }
+  
+  .spot-price {
+    font-size: 0.9rem;
+  }
+  
+  .feature-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Mobile landscape and small tablets (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .spot-card {
+    min-height: 110px;
+    padding: 0.875rem;
   }
   
   .spot-number {
@@ -105,14 +253,96 @@
   }
   
   .spot-type {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
   
   .spot-price {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
   
   .feature-tag {
+    font-size: 0.65rem;
+    padding: 0.18rem 0.35rem;
+  }
+  
+  .spot-status {
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile portrait (up to 575px) */
+@media (max-width: 575px) {
+  .spot-card {
+    min-height: 85px;
+    padding: 0.6rem;
+    border-radius: 6px;
+  }
+  
+  .spot-number {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .spot-type {
+    font-size: 0.65rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .spot-price {
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .spot-features {
+    margin-bottom: 0.3rem;
+  }
+  
+  .feature-tag {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.25rem;
+    border-radius: 3px;
+  }
+  
+  .spot-status {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Extra small screens (up to 375px) */
+@media (max-width: 375px) {
+  .spot-card {
+    min-height: 80px;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .spot-number {
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .spot-type {
+    font-size: 0.6rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .spot-price {
+    font-size: 0.7rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .spot-features {
+    margin-bottom: 0.25rem;
+  }
+  
+  .feature-tag {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.2rem;
+    border-radius: 2px;
+  }
+  
+  .spot-status {
     font-size: 0.6rem;
     padding: 0.15rem 0.3rem;
   }
