@@ -1,99 +1,169 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import ParkingMap from './components/ParkingMap';
-import BookingForm from './components/BookingForm';
-import BookingSummary from './components/BookingSummary';
-import MyBookings from './components/MyBookings';
-import OwnerDashboard from './components/OwnerDashboard';
-import Help from './components/Help';
-import './App.css';
+import { Suspense, lazy, useEffect } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { supabase } from './lib/supabase';
+import { initializeAuth, logout } from './features/authentication/authUserSlice';
+import PrivateRoute from "./routes/PrivateRoute";
+import ErrorPage from "./pages/ErrorPage"
+import { ErrorElement, Loader } from "./components";
+import AdminDashboard from "./pages/AdminDashboard";
+import GovDashboard from './components/GovDashboard';
 
-function App() {
-  const [selectedSpot, setSelectedSpot] = useState(null);
-  const [bookingDetails, setBookingDetails] = useState(null);
-  const [showSummary, setShowSummary] = useState(false);
 
-  const handleSpotSelect = (spot) => {
-    setSelectedSpot(spot);
-  };
+const HomeLayout = lazy(() => import("./pages/HomeLayout"));
+const Landing = lazy(() => import("./pages/Landing"));
+const About = lazy(() => import("./pages/About"));
+const ListBookings = lazy(() => import("./pages/ListBookings"));
+const MyBookings = lazy(() => import("./pages/MyBookings"));
+const SingleBooking = lazy(() => import("./pages/SingleBooking"));
+const MapBookings = lazy(() => import("./pages/MapBookings"));
+const Confirmation = lazy(() => import("./pages/Confirmation"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const UploadParking = lazy(() => import("./pages/UploadParking"));
+const CommercialParkingForm = lazy(() => import("./pages/CommercialParkingForm"));
+const IndividualParkingForm = lazy(() => import("./pages/IndividualParkingForm"));
+const LoaderDemo = lazy(() => import("./components/loading/LoaderDemo"));
 
-  const handleBookingSubmit = (bookingData) => {
-    setBookingDetails(bookingData);
-    setShowSummary(true);
-    setSelectedSpot(null); // Reset selection after booking
-  };
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <HomeLayout />
+      </Suspense>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Landing />
+          </Suspense>
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: "mapbookings",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <MapBookings />
+          </Suspense>
+        ),
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "listbookings",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ListBookings/>
+          </Suspense>
+        ),
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "listbookings/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SingleBooking />
+          </Suspense>
+        ),
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "listbookings/:id/confirm",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Confirmation />
+          </Suspense>
+        ),
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "mybookings",
+        element: (
+          <PrivateRoute>
+            <Suspense fallback={<Loader />}>
+              <MyBookings />
+            </Suspense>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "upload",
+        element: <UploadParking />,
+      },
+      {
+        path: "upload/commercial",
+        element: <CommercialParkingForm />,
+      },
+      {
+        path: "upload/individual",
+        element: <IndividualParkingForm />,
+      },
+      {
+        path: "admin",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "gov",
+        element: <GovDashboard />,
+      },
+      {
+        path: "loader-demo",
+        element: <LoaderDemo />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Login />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Register />
+      </Suspense>
+    ),
+  },
+]);
 
-  const handleCloseSummary = () => {
-    setShowSummary(false);
-    setBookingDetails(null);
-  };
+const App = () => {
+  const dispatch = useDispatch();
 
-  const HomePage = () => (
-    <main className="main-content">
-      <div className="container">
-        <div className="app-header">
-          <h1>Find Your Perfect Parking Spot</h1>
-          <p>Select a spot, book your time, and park with confidence</p>
-        </div>
-        
-        <div className="booking-container">
-          <div className="booking-left">
-            <ParkingMap 
-              selectedSpot={selectedSpot}
-              onSpotSelect={handleSpotSelect}
-              bookingDetails={bookingDetails}
-            />
-          </div>
-          
-          <div className="booking-right">
-            <BookingForm 
-              selectedSpot={selectedSpot}
-              onBookingSubmit={handleBookingSubmit}
-              bookingDetails={bookingDetails}
-              setBookingDetails={setBookingDetails}
-            />
-          </div>
-        </div>
-      </div>
-      
-      {showSummary && (
-        <BookingSummary 
-          booking={bookingDetails}
-          onClose={handleCloseSummary}
-        />
-      )}
-    </main>
-  );
+  useEffect(() => {
+    // Initialize auth state
+    dispatch(initializeAuth());
 
-  return (
-    <Router>
-      <div className="app">
-        {/* 3D Background Elements */}
-        <div className="floating-shapes">
-          <div className="floating-shape"></div>
-          <div className="floating-shape"></div>
-          <div className="floating-shape"></div>
-          <div className="floating-shape"></div>
-        </div>
-        
-        <div className="geometric-shapes">
-          <div className="geometric-shape"></div>
-          <div className="geometric-shape"></div>
-          <div className="geometric-shape"></div>
-        </div>
-        
-        <Header />
-        
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/bookings" element={<MyBookings />} />
-          <Route path="/dashboard" element={<OwnerDashboard />} />
-          <Route path="/help" element={<Help />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        dispatch(logout());
+      } else if (session) {
+        dispatch(initializeAuth());
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, [dispatch]);
+
+  return <RouterProvider router={router} />;
+};
 
 export default App;
